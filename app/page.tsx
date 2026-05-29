@@ -7,9 +7,9 @@ import CritiqueCard from '@/components/CritiqueCard';
 import { PrdSkeleton, CritiqueSkeleton } from '@/components/Skeleton';
 import type { Brief, Critique, AppPhase } from '@/types/prd';
 
-import samplePrd from '@/data/sample-prd.md';
+import samplePrd from '@/data/sample-prd';
 import sampleCritique from '@/data/sample-critique.json';
-import sampleRefined from '@/data/sample-refined.md';
+import sampleRefined from '@/data/sample-refined';
 
 interface OutputState {
   prd: string;
