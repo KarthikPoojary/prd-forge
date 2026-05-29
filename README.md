@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PRD Forge
 
-## Getting Started
+Turn a rough problem brief into a structured, measurable PRD in three AI passes: **generate → critique → refine**.
 
-First, run the development server:
+**Live demo:** https://prd-forge.vercel.app
+
+## What it does
+
+1. **Generate** — paste a brief (problem, audience, constraints) and the LLM writes a full PRD with goals, non-goals, proposed solution, alternatives considered, risks, rollout plan, and stakeholders
+2. **Critique** — a second pass scores the PRD against a TPM rubric (clarity, measurability, risk coverage, alternatives, stakeholders) and returns structured feedback
+3. **Refine** — a third pass rewrites the PRD to address the critique; scores update to show the improvement
+
+No API key needed — click "Load example" and try demo mode first.
+
+## Tech stack
+
+- Next.js 16 (App Router, TypeScript)
+- Tailwind CSS v4
+- Groq `llama-3.3-70b-versatile` as default LLM (free tier)
+- Anthropic `claude-opus-4-7` as fallback
+
+## Running locally
 
 ```bash
+cp .env.local.example .env.local
+# Add your GROQ_API_KEY (free at console.groq.com)
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Seeding demo data
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+GROQ_API_KEY=gsk_... npx tsx scripts/seed.ts
+```
 
-## Learn More
+Writes `data/sample-prd.md`, `data/sample-critique.json`, and `data/sample-refined.md`.
 
-To learn more about Next.js, take a look at the following resources:
+## Environment variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Variable | Purpose |
+|---|---|
+| `GROQ_API_KEY` | Default LLM provider (free tier at console.groq.com) |
+| `ANTHROPIC_API_KEY` | Fallback if Groq key not set |
+| `ADMIN_PASSWORD` | Unlocks server-side key for interview/demo mode |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Part of a portfolio series
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Project | What it is | Live |
+|---|---|---|
+| [Delivery Lens](https://github.com/KarthikPoojary/delivery-lens) | DORA metrics dashboard for GitHub & Gerrit | [delivery-lens.vercel.app](https://delivery-lens.vercel.app) |
+| [Signal Sweep](https://github.com/KarthikPoojary/signal-sweep) | Incident clustering with LLM root-cause analysis | [signal-sweep.vercel.app](https://signal-sweep.vercel.app) |
+| PRD Forge | Three-pass AI PRD generator with built-in review | [prd-forge.vercel.app](https://prd-forge.vercel.app) |
